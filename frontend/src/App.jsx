@@ -5,7 +5,8 @@ export default function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('/api/ping')
+    const base = import.meta.env.VITE_API_BASE_URL || '';
+    fetch(`${base}/api/ping`)
       .then((r) => r.json())
       .then((data) => {
         setStatus('ok');
