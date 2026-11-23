@@ -53,5 +53,17 @@ CREATE TABLE IF NOT EXISTS sessions (
   session_timestamp TIMESTAMPTZ DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS password_resets (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  token TEXT UNIQUE NOT NULL,
+  expires_at TIMESTAMPTZ NOT NULL,
+  used BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
 CREATE INDEX IF NOT EXISTS idx_sessions_restaurant ON sessions(restaurant_id);
 CREATE INDEX IF NOT EXISTS idx_sessions_timestamp ON sessions(session_timestamp);
+CREATE INDEX IF NOT EXISTS idx_password_resets_user ON password_resets(user_id);
+CREATE INDEX IF NOT EXISTS idx_password_resets_expires ON password_resets(expires_at);
+CREATE INDEX IF NOT EXISTS idx_password_resets_used ON password_resets(used);
