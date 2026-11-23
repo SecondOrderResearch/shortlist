@@ -20,4 +20,7 @@ app.use('/api/menus', require('./routes/menus'));
 // Sessions routes
 app.use('/api/sessions', require('./routes/sessions'));
 
+// Upload routes
+app.use('/api/upload', require('./routes/upload'));
+
 app.listen(PORT, () => console.log(`ShortList API listening on port ${PORT}`));
