@@ -277,7 +277,7 @@ export default function Upload() {
                   <p className="text-sm text-gray-600 mt-1">{item.description}</p>
                 )}
                 <div className="mt-2 text-sm text-gray-500">
-                  <span>£{item.price?.toFixed(2)}</span>
+                  <span>£{Number(item.price).toFixed(2)}</span>
                   {item.calories && <span className="ml-2">{item.calories} cal</span>}
                   {item.allergens?.length > 0 && (
                     <span className="ml-2 text-xs">Allergens: {item.allergens.join(', ')}</span>
