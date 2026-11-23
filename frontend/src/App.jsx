@@ -49,7 +49,7 @@ export default function App() {
           />
           <Route
                     path="/"
-                    element={<App />}
+                    element={<Navigate to="/login" replace />}
                   />
         </Routes>
       </main>
