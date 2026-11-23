@@ -23,4 +23,20 @@ app.use('/api/sessions', require('./routes/sessions'));
 // Upload routes
 app.use('/api/upload', require('./routes/upload'));
 
+const fs = require('fs');
+const path = require('path');
+const { pool } = require('./db');
+
+// One-time migration endpoint (remove after use)
+app.post('/api/__init', async (req, res) => {
+  try {
+    const schema = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
+    await pool.query(schema);
+    res.json({ ok: true, message: 'Schema applied' });
+  } catch (err) {
+    console.error('Migration failed:', err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 app.listen(PORT, () => console.log(`ShortList API listening on port ${PORT}`));
