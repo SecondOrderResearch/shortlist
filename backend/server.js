@@ -34,8 +34,8 @@ app.post('/api/__init', async (req, res) => {
     await pool.query(schema);
     res.json({ ok: true, message: 'Schema applied' });
   } catch (err) {
-    console.error('Migration failed:', err);
-    res.status(500).json({ ok: false, error: err.message });
+    console.error('Migration failed:', err.code, err.message, err.detail, err.hint);
+    res.status(500).json({ ok: false, error: err.message || err.code || String(err), detail: err.detail || null, hint: err.hint || null });
   }
 });
 
