@@ -14,22 +14,22 @@ function signToken(user) {
 }
 
 // GET /api/admin/restaurants
-router.get('/', async (req, res) => {
+router.get('/restaurants', async (req, res) => {
   const result = await pool.query('SELECT id, name, location, owner_id FROM restaurants ORDER BY name ASC', []);
   if (!result.rowCount) return res.status(404).json({ error: 'No restaurants found' });
   res.json(result.rows);
 });
 
-// GET /api/admin/menus/:restaurantId
-router.get('/:restaurantId/menus', async (req, res) => {
+// GET /api/admin/restaurants/:restaurantId/menus
+router.get('/restaurants/:restaurantId/menus', async (req, res) => {
   const restaurantId = req.params.restaurantId;
   const result = await pool.query('SELECT * FROM menus WHERE restaurant_id = $1', [restaurantId]);
   if (!result.rowCount) return res.status(404).json({ error: 'Menu not found for this restaurant' });
   res.json(result.rows);
 });
 
-// GET /api/admin/items/:menuId
-router.get('/:menuId/items', async (req, res) => {
+// GET /api/admin/menus/:menuId/items
+router.get('/menus/:menuId/items', async (req, res) => {
   const menuId = req.params.menuId;
   const result = await pool.query('SELECT * FROM menu_items WHERE menu_id = $1', [menuId]);
   if (!result.rowCount) return res.status(404).json({ error: 'Item not found in menu' });
