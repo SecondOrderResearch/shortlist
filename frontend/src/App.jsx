@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-ro
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Upload from './pages/Upload';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminRoute from './components/AdminRoute';
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('token');
@@ -31,6 +33,7 @@ export default function App() {
         <nav className="mt-8 mb-6 flex gap-2">
           <Link to="/login" className="px-4 py-2 rounded text-ink hover:text-accent">Login</Link>
           <Link to="/register" className="px-4 py-2 rounded text-ink hover:text-accent">Register</Link>
+          <Link to="/admin" className="px-4 py-2 rounded text-ink hover:text-accent">Admin</Link>
         </nav>
         <div className="flex-1 w-full max-w-2xl">
           {status === 'loading' && <p>Loading...</p>}
@@ -48,9 +51,14 @@ export default function App() {
             }
           />
           <Route
-                    path="/"
-                    element={<Navigate to="/login" replace />}
-                  />
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+          <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </main>
     </Router>
