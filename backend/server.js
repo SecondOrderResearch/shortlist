@@ -20,6 +20,10 @@ app.use('/api/menus', require('./routes/menus'));
 // Sessions routes
 app.use('/api/sessions', require('./routes/sessions'));
 
+// Metrics routes
+const metricsRouter = require('./routes/admin');
+app.use('/api/admin/metrics', metricsRouter);
+
 // Admin routes (protected with admin middleware)
 const adminAuth = require('./middleware/adminAuth');
 app.use('/api/admin', adminAuth, require('./routes/admin'));
