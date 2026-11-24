@@ -20,6 +20,10 @@ app.use('/api/menus', require('./routes/menus'));
 // Sessions routes
 app.use('/api/sessions', require('./routes/sessions'));
 
+// Admin routes (protected with admin middleware)
+const adminAuth = require('./middleware/adminAuth');
+app.use('/api/admin', adminAuth, require('./routes/admin'));
+
 // Upload routes
 app.use('/api/upload', require('./routes/upload'));
 
