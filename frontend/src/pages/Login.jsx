@@ -23,7 +23,8 @@ export default function Login() {
       if (!res.ok) throw new Error(data.error || 'Login failed');
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
-      navigate('/upload');
+      const role = data.user?.role;
+      navigate(role === 'restaurant_admin' ? '/admin' : '/upload');
     } catch (err) {
       setError(err.message);
     } finally {
