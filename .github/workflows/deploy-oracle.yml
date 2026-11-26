@@ -17,7 +17,7 @@ jobs:
 
       - name: Deploy to Oracle Cloud VM via SSH
         env:
-          OCI_VM_IP: ${{ secrets.OCI_VM_IP }}
+          OCI_VM_IP: 145.241.242.40
           OCI_SSH_KEY: ${{ secrets.OCI_SSH_KEY }}
         run: |
           set -e
